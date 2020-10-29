@@ -1,0 +1,40 @@
+/*STYLES*/
+
+.btn {
+  background-color: transparent;
+  border-radius: 0.25rem;
+  font-size: 16px;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-family: 'GoogleSansMedium';
+  color: var(--color-grey-500);
+}
+.btn--fill {
+  border: 2px solid rgba(66, 63, 63, 0.3);
+}
+.btn--fill:hover {
+  background-color: var(--color-grey-500);
+  border-color: var(--color-grey-500);
+  color: var(--color-grey-25);
+}
+.btn--fillup {
+  border-color: #1a73e8;
+  color: #1a73e8;
+}
+
+.btn--fillup:hover {
+  background-color: #1a73e8;
+  color: #fff;
+}
+.btn-highlight {
+}
+
+/*SIZES*/
+.btn--small {
+}
+.btn--medium {
+}
+.btn--large {
+}
+
+/*HOVER*/

@@ -1,0 +1,18 @@
+.promo-container {
+  background-color: #1a73e8;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+  font-weight: 400;
+  padding-left: 24px;
+}
+
+.banner-link {
+  color: #fff;
+  padding-left: 7px;
+}
+
+.promo-text {
+}

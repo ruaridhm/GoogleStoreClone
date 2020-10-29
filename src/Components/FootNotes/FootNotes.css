@@ -1,0 +1,21 @@
+.footnotes {
+  font-size: 0.75em;
+  margin: 0 1.5rem;
+  padding: 2rem 4.5rem;
+  color: var(--color-grey-500);
+}
+
+.footnote-list {
+  padding-left: 1em;
+  margin: 0;
+}
+
+.footnote-item {
+  margin-bottom: 10px;
+  line-height: 20px;
+}
+
+.footnote-item a {
+  color: var(--color-blue);
+  text-decoration: none;
+}

@@ -1,0 +1,526 @@
+/* automation variables */
+/* Standard Colors */
+/* Colors for live auction left column, where it says "Now", "Paused", and "Closed" on the top right of the left column. */
+/* End of colors for live auction left column */
+/* Lot grid view colors */
+/* End of lot grid view colors */
+/* Text color for:
+	- "Won"
+	- "Bidding $3,000 (Max. $4,000)"
+	- "You bid $3,000" (for timed auctions to indicate what your bid was for a non-active lot)
+*/
+/* Text color for "Outbid $4,000 [...] Current $4,500". */
+/* Lot list background color when hovering. */
+/*$auction-status-color-default: transparentize($primary-color-medium,0.1) !default;
+$auction-status-text-color-default: #fff !default;*/
+/*$button-color-black-text-shadow: #495d75 !default;
+$button-color-black-border: #8598a9 !default;
+$button-color-black-shadow: #131d27 !default;*/
+/* TODO Need to create red color button for the demo template */
+/* Emulating bootstrap default line height, useful when you want to reset the line height */
+/* Line height value used for a nearly zero pixel gap around text. Useful when you want to align text pixel perfectly. */
+/* Deprecated, do not use this. Use $am-logo-color from _menu.scss instead. */
+/* new menu variables */
+/* realestate menu variables */
+/* 
+	this is the core responsive css file. moving forward all responsive css should be in this file.
+	we need to go back and move the responsive css code into here as well
+*/
+body.is-mobile.has-core-navbar.large-navbar-logo-visible.has-return-to-link #main,
+body.is-mobile.has-core-navbar.has-large-navbar-logo.has-return-to-link #main {
+  margin-top: 74px; }
+
+body.is-mobile.has-core-navbar.large-navbar-logo-visible #main,
+body.is-mobile.has-core-navbar.has-large-navbar-logo #main {
+  margin-top: 47px; }
+
+#my-bid-mobile-edit .bid-suggestions {
+  text-align: left; }
+  #my-bid-mobile-edit .bid-suggestions .bid-suggestion {
+    line-height: 44px; }
+
+#my-bid-mobile-edit .actions .btn.half-size {
+  width: 48%;
+  margin-right: 2%; }
+  #my-bid-mobile-edit .actions .btn.half-size.delete {
+    margin-right: 0px;
+    margin-left: 2%; }
+
+.large-navbar-logo-visible.has-return-to-link .mobile-filters-screen {
+  top: 73px; }
+
+.mobile-filters-screen {
+  height: 100%;
+  position: fixed;
+  top: 47px;
+  /* this is the height of the mobile nav, if we ever change that we need to adjust this */
+  padding-bottom: 47px;
+  /* this value has to be equal to the above value so that we can see the entire list. */
+  right: -100%;
+  min-height: 100vh;
+  width: 90%;
+  background-color: #F7F7F7;
+  z-index: 1000;
+  /* using insane value because we want this always on the top */
+  padding: 5px;
+  overflow-y: scroll; }
+  .mobile-filters-screen label {
+    font-weight: 400; }
+    .mobile-filters-screen label.control-label {
+      margin-right: 5px;
+      text-transform: uppercase;
+      font-weight: 700; }
+  .mobile-filters-screen .mobile-filter-header {
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 5px;
+    text-align: center;
+    background-color: #DEDEDE;
+    position: relative; }
+    .mobile-filters-screen .mobile-filter-header .reset {
+      position: absolute;
+      right: 10px;
+      cursor: pointer; }
+  .mobile-filters-screen .mobile-filter-wrap {
+    margin-top: 3px;
+    margin-left: 5px; }
+  .mobile-filters-screen .mobile-filters-screen-close {
+    z-index: 11;
+    padding-left: 15px;
+    padding-top: 2px;
+    font-size: 25px;
+    margin-bottom: -12px;
+    cursor: pointer;
+    position: relative;
+    height: 18px;
+    margin-bottom: 10px;
+    width: 100%; }
+    .mobile-filters-screen .mobile-filters-screen-close i {
+      position: absolute;
+      right: 10px;
+      top: 0px; }
+  .mobile-filters-screen .radio-wrapper,
+  .mobile-filters-screen .checkbox-wrapper {
+    line-height: 20px; }
+  .mobile-filters-screen .filter-item.view-style, .mobile-filters-screen .filter-item.jump-to-lot-wrap {
+    padding: 5px;
+    margin-top: 5px; }
+  .mobile-filters-screen .filter-item.jump-to-lot-wrap #jump-to-lot-input {
+    display: inline-block;
+    width: 70px;
+    height: 30px; }
+  .mobile-filters-screen .radio.custom + .radio.custom, .mobile-filters-screen .radio.custom + .checkbox.custom, .mobile-filters-screen .checkbox.custom + .radio.custom, .mobile-filters-screen .checkbox.custom + .checkbox.custom {
+    margin-top: 10px; }
+  .mobile-filters-screen .category-filter {
+    margin-bottom: 70px;
+    /* without this we will not be able to see all of the categories */ }
+
+body.is-fully-responsive #auction-header.v2 .mobile-header.single > div:first-child {
+  border-right: none;
+  width: 100%; }
+  body.is-fully-responsive #auction-header.v2 .mobile-header.single > div:first-child::after {
+    content: ''; }
+
+/* this controls the collapse of the return to link */
+body.is-fully-responsive.is-mobile #mobile-nav {
+  top: 0px; }
+
+body.is-fully-responsive.is-mobile.large-navbar-logo-visible.has-return-to-link #mobile-nav {
+  top: 27px; }
+
+@media (max-width: 991px) {
+  body.is-fully-responsive .lots-page .lots.list-view .mobile-auction-title-wrapper,
+  body.is-fully-responsive .lots-page .lots.grid-view .mobile-auction-title-wrapper {
+    border-bottom: 1px solid #e5e5e5; }
+  body.is-fully-responsive .lots-page .lots.list-view .auction-title,
+  body.is-fully-responsive .lots-page .lots.grid-view .auction-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.1;
+    overflow: hidden;
+    margin-top: 10px;
+    height: auto;
+    border-bottom: 0px; }
+    body.is-fully-responsive .lots-page .lots.list-view .auction-title .lot-count,
+    body.is-fully-responsive .lots-page .lots.list-view .auction-title .auction-time-left,
+    body.is-fully-responsive .lots-page .lots.grid-view .auction-title .lot-count,
+    body.is-fully-responsive .lots-page .lots.grid-view .auction-title .auction-time-left {
+      display: block;
+      border-right: none; }
+  body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .cover-thumbnail,
+  body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .lot-thumbnail-placeholder {
+    width: 108px;
+    height: 108px; }
+  body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .watch-icon-wrap {
+    max-width: 100px !important; }
+  body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details {
+    position: relative;
+    min-height: 124px;
+    padding-right: 106px;
+    /* .title{
+							display: -webkit-box;
+							-webkit-line-clamp: 2;
+							-webkit-box-orient: vertical;
+							line-height: 1.1;
+							overflow: hidden;
+							border-left: none;
+							margin-left: 0px;
+							padding-left: 0px;
+						} */ }
+    body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .mobile-footer {
+      /* position: absolute;
+							margin-bottom: auto;
+							bottom: 0px;
+							height: 48px;
+							width: 60%; */ }
+      body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .mobile-footer .btn.bid-live {
+        display: none;
+        /* hide this button as we want no bidding from the lot list */ }
+      body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .mobile-footer .my-bid-vertical .amount-container {
+        text-align: left; }
+      body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .mobile-footer .my-bid-vertical .amount-label,
+      body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .mobile-footer .my-bid-vertical .sold-amount,
+      body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .mobile-footer .my-bid-vertical .amount {
+        display: inline-block;
+        font-size: 14px; }
+  body.is-fully-responsive #auction-header.v2 {
+    height: auto !important; }
+  .profile-page .form-section .form-group label,
+  .bidder-register-page .form-section .form-group label {
+    height: auto !important; }
+  .profile-page .new-credit-card-form .cvc-code-label, .profile-page .form-section .new-credit-card-form .cvc-code-label,
+  .profile-page .new-credit-card-form .expiry-year-label, .profile-page .form-section .new-credit-card-form .expiry-year-label,
+  .profile-page .new-credit-card-form .card-holder-name-label > input, .profile-page .form-section .new-credit-card-form .card-holder-name-label > input,
+  .bidder-register-page .new-credit-card-form .cvc-code-label,
+  .bidder-register-page .form-section .new-credit-card-form .cvc-code-label,
+  .bidder-register-page .new-credit-card-form .expiry-year-label,
+  .bidder-register-page .form-section .new-credit-card-form .expiry-year-label,
+  .bidder-register-page .new-credit-card-form .card-holder-name-label > input,
+  .bidder-register-page .form-section .new-credit-card-form .card-holder-name-label > input {
+    float: none; }
+  .profile-page .new-credit-card-form .credit-card-inputs .card-number, .profile-page .new-credit-card-form .credit-card-inputs .cvc-code, .profile-page .new-credit-card-form .credit-card-inputs .expiry-month, .profile-page .new-credit-card-form .credit-card-inputs .expiry-year, .profile-page .form-section .new-credit-card-form .credit-card-inputs .card-number, .profile-page .form-section .new-credit-card-form .credit-card-inputs .cvc-code, .profile-page .form-section .new-credit-card-form .credit-card-inputs .expiry-month, .profile-page .form-section .new-credit-card-form .credit-card-inputs .expiry-year,
+  .bidder-register-page .new-credit-card-form .credit-card-inputs .card-number,
+  .bidder-register-page .new-credit-card-form .credit-card-inputs .cvc-code,
+  .bidder-register-page .new-credit-card-form .credit-card-inputs .expiry-month,
+  .bidder-register-page .new-credit-card-form .credit-card-inputs .expiry-year,
+  .bidder-register-page .form-section .new-credit-card-form .credit-card-inputs .card-number,
+  .bidder-register-page .form-section .new-credit-card-form .credit-card-inputs .cvc-code,
+  .bidder-register-page .form-section .new-credit-card-form .credit-card-inputs .expiry-month,
+  .bidder-register-page .form-section .new-credit-card-form .credit-card-inputs .expiry-year {
+    float: none;
+    display: block; }
+  body.large-navbar-logo-visible.has-return-to-link .return-to-wrapper .container,
+  body.has-core-navbar.large-navbar-logo-visible.has-return-to-link .return-to-wrapper .container {
+    white-space: nowrap; }
+  body.is-fully-responsive {
+    /* end lot page */ }
+    body.is-fully-responsive .container {
+      padding-left: 8px;
+      padding-right: 8px; }
+    body.is-fully-responsive .lot-page .main-image-wrap, body.is-fully-responsive .lot-page .right-column,
+    body.is-fully-responsive .realestate-hybrid-lot-page .main-image-wrap,
+    body.is-fully-responsive .realestate-hybrid-lot-page .right-column {
+      margin-top: 0px; }
+    body.is-fully-responsive .lot-page .main-image-wrap,
+    body.is-fully-responsive .realestate-hybrid-lot-page .main-image-wrap {
+      width: auto;
+      position: relative; }
+      body.is-fully-responsive .lot-page .main-image-wrap .images,
+      body.is-fully-responsive .realestate-hybrid-lot-page .main-image-wrap .images {
+        margin-left: 15px;
+        margin-top: 5px; }
+        body.is-fully-responsive .lot-page .main-image-wrap .images img,
+        body.is-fully-responsive .realestate-hybrid-lot-page .main-image-wrap .images img {
+          height: 78px;
+          width: 78px; }
+      body.is-fully-responsive .lot-page .main-image-wrap .lot-time-overlay,
+      body.is-fully-responsive .realestate-hybrid-lot-page .main-image-wrap .lot-time-overlay {
+        width: 100%; }
+    body.is-fully-responsive .lot-page .main-image,
+    body.is-fully-responsive .lot-page .lot-thumbnail-placeholder,
+    body.is-fully-responsive .realestate-hybrid-lot-page .main-image,
+    body.is-fully-responsive .realestate-hybrid-lot-page .lot-thumbnail-placeholder {
+      width: 100%;
+      height: auto; }
+    body.is-fully-responsive .lot-page .right-column,
+    body.is-fully-responsive .realestate-hybrid-lot-page .right-column {
+      width: 100%;
+      min-height: auto;
+      margin-bottom: 20px; }
+    body.is-fully-responsive .lot-page .details,
+    body.is-fully-responsive .realestate-hybrid-lot-page .details {
+      margin-left: 0; }
+    body.is-fully-responsive #footer-mobile {
+      background-color: #2a2a2a;
+      color: white;
+      font-size: 13px; }
+      body.is-fully-responsive #footer-mobile .row {
+        margin-top: 10px; }
+        body.is-fully-responsive #footer-mobile .row.bordered {
+          border-bottom: 1px dashed #7c7c7c;
+          padding-bottom: 10px; }
+      body.is-fully-responsive #footer-mobile .back-to-top-wrapper {
+        text-align: center;
+        margin-top: -10px;
+        text-transform: uppercase;
+        font-weight: 700; }
+        body.is-fully-responsive #footer-mobile .back-to-top-wrapper a {
+          color: #fff; }
+      body.is-fully-responsive #footer-mobile .download-app {
+        height: 40px;
+        margin-left: 12px; }
+        body.is-fully-responsive #footer-mobile .download-app + .download-app {
+          margin-left: 10px; }
+        body.is-fully-responsive #footer-mobile .download-app.ios {
+          width: 135px; }
+        body.is-fully-responsive #footer-mobile .download-app.android {
+          width: 122px; }
+      body.is-fully-responsive #footer-mobile .download-app-text,
+      body.is-fully-responsive #footer-mobile .download-app-buttons,
+      body.is-fully-responsive #footer-mobile .download-app-buttons > * {
+        display: inline-block;
+        vertical-align: top; }
+      body.is-fully-responsive #footer-mobile .download-app-text {
+        margin-bottom: 8px;
+        margin-left: 5%; }
+        body.is-fully-responsive #footer-mobile .download-app-text .title {
+          font-weight: 700;
+          text-transform: uppercase; }
+        body.is-fully-responsive #footer-mobile .download-app-text p {
+          margin-bottom: 0;
+          color: #fff; }
+      body.is-fully-responsive #footer-mobile .powered-by {
+        text-align: center; }
+        body.is-fully-responsive #footer-mobile .powered-by .logo-auction-mobility {
+          display: inline-block;
+          vertical-align: top;
+          width: 100px;
+          height: 32px;
+          background-image: url("/img/logo-auction-mobility-white.png");
+          /* Deprecated. Use $am-logo-color from _menu.scss instead to change the am logo. */
+          background-size: 100% auto;
+          background-repeat: no-repeat; }
+      body.is-fully-responsive #footer-mobile .copyright-and-terms {
+        text-align: center;
+        margin: 13px auto; }
+      body.is-fully-responsive #footer-mobile .copyright {
+        color: #7c7c7c; }
+      body.is-fully-responsive #footer-mobile .copyright, body.is-fully-responsive #footer-mobile .terms-and-conditions {
+        display: inline-block; }
+    body.is-fully-responsive .mobile-auction-type {
+      display: block;
+      margin-top: 10px; }
+    body.is-fully-responsive #auction-header .auction-header-details {
+      vertical-align: top;
+      margin-top: 10px; }
+    body.is-fully-responsive #auction-header .tabs .tab {
+      padding: 0 5px;
+      font-size: 12px; }
+    body.is-fully-responsive #auction-header.v2 {
+      height: auto !important;
+      /* border-bottom: 1px solid #ccc; */
+      border-bottom: none;
+      /* margin-bottom: -16px; */ }
+      body.is-fully-responsive #auction-header.v2 .mobile-header {
+        /* display: block; */
+        border-top: 1px solid #ccc;
+        margin-left: -5px;
+        margin-top: 10px;
+        border-bottom: 1px solid #ccc;
+        width: 100%; }
+        body.is-fully-responsive #auction-header.v2 .mobile-header > div {
+          display: inline-block;
+          width: 49%;
+          text-align: center;
+          height: 37px;
+          vertical-align: middle;
+          padding-top: 11px;
+          text-transform: uppercase; }
+          body.is-fully-responsive #auction-header.v2 .mobile-header > div.full-width {
+            width: 100%; }
+            body.is-fully-responsive #auction-header.v2 .mobile-header > div.full-width::after {
+              right: initial !important;
+              margin-left: 5px !important; }
+        body.is-fully-responsive #auction-header.v2 .mobile-header > div:first-child {
+          border-right: 1px solid #ccc;
+          position: relative; }
+          body.is-fully-responsive #auction-header.v2 .mobile-header > div:first-child::after {
+            content: '>';
+            position: absolute;
+            right: 5px; }
+        body.is-fully-responsive #auction-header.v2 .mobile-header .mobile-bid-count {
+          color: #333; }
+        body.is-fully-responsive #auction-header.v2 .mobile-header .toggle-auction-info {
+          line-height: inherit;
+          width: auto;
+          border-style: none; }
+          body.is-fully-responsive #auction-header.v2 .mobile-header .toggle-auction-info::before {
+            display: none; }
+          body.is-fully-responsive #auction-header.v2 .mobile-header .toggle-auction-info.open {
+            background-color: inherit; }
+      body.is-fully-responsive #auction-header.v2 .auction-status-box.has-end-date ~ .mobile-title {
+        width: 67%; }
+      body.is-fully-responsive #auction-header.v2 .auction-type {
+        padding-left: 15px;
+        display: block;
+        margin-right: 7px;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 12px; }
+        body.is-fully-responsive #auction-header.v2 .auction-type.timed-auction, body.is-fully-responsive #auction-header.v2 .auction-type.live-auction {
+          background-repeat: no-repeat;
+          background-size: 15px; }
+        body.is-fully-responsive #auction-header.v2 .auction-type.timed-auction {
+          background-image: url("/img/icon-clock.png"); }
+        body.is-fully-responsive #auction-header.v2 .auction-type.live-auction {
+          background-image: url("/img/icon-hammer.png"); }
+    body.is-fully-responsive .filters-container.bottom-scroll-sticky {
+      padding-left: 0px; }
+    body.is-fully-responsive .filters-container .number-of-lots {
+      margin-top: 10px;
+      margin-bottom: 10px; }
+    body.is-fully-responsive .watched .lots-page #auction-header-wrap {
+      height: 110px; }
+      body.is-fully-responsive .watched .lots-page #auction-header-wrap #auction-header {
+        height: 110px; }
+        body.is-fully-responsive .watched .lots-page #auction-header-wrap #auction-header .auction-header-details {
+          margin-top: -30px; }
+    body.is-fully-responsive .lots-body.bids #auction-header.v2 .mobile-header > div:first-child {
+      border-right: none; }
+      body.is-fully-responsive .lots-body.bids #auction-header.v2 .mobile-header > div:first-child::after {
+        content: ''; }
+    body.is-fully-responsive .lots-page .lots.grid-view .lot {
+      width: 26.5%;
+      overflow: hidden;
+      margin-bottom: 8px;
+      /* padding-left: 6px; */ }
+    body.is-fully-responsive .lots-page .lots.grid-view .lot-thumbnail-overlay {
+      display: none; }
+    body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .lot-number {
+      font-size: 21px;
+      font-weight: 300; }
+    body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .watch-icon::after {
+      /* top: 0px;
+							left: 3px; */ }
+    body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details {
+      position: relative;
+      height: 100%;
+      /* .mobile-footer{
+								position: absolute;
+								margin-bottom: 42px;
+								bottom: 0;
+								width: 100%;
+								.lot-price-container{
+									.estimate{
+										display: block;
+										&::before{
+											content: none;
+										}
+									}
+								}
+							} */ }
+      body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .lot-number-and-title {
+        width: auto; }
+      body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .lot-price-container {
+        padding-left: 0px;
+        right: 120px; }
+    body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .watch-icon-wrap {
+      overflow: visible; }
+    body.is-fully-responsive .app-banner {
+      margin-top: 11px; }
+      body.is-fully-responsive .app-banner .mobile-device-wrapper {
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.7);
+        left: 0%; }
+      body.is-fully-responsive .app-banner .close {
+        position: absolute;
+        float: none; }
+    body.is-fully-responsive .register-box, body.is-fully-responsive .forgot-password-box, body.is-fully-responsive .reset-password-box {
+      width: auto; } }
+
+.filters-button-wrap {
+  display: block !important;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+.lot-header-v2-mobile {
+  position: relative; }
+  .lot-header-v2-mobile .lot-header-wrap, .lot-header-v2-mobile .back-wrapper {
+    border-bottom: 1px solid #ccc; }
+  .lot-header-v2-mobile .lot-header-wrap {
+    background-color: #eeeeee;
+    padding-top: 12px;
+    padding-bottom: 7px; }
+    .lot-header-v2-mobile .lot-header-wrap .lot-number, .lot-header-v2-mobile .lot-header-wrap .lot-title {
+      display: block;
+      line-height: 22px;
+      vertical-align: middle; }
+    .lot-header-v2-mobile .lot-header-wrap .lot-number {
+      font-weight: 400;
+      font-size: 17px;
+      text-align: left;
+      color: #333333; }
+    .lot-header-v2-mobile .lot-header-wrap .lot-title {
+      font-weight: 700;
+      font-size: 17px;
+      color: #333333;
+      position: relative; }
+    .lot-header-v2-mobile .lot-header-wrap .actions,
+    .lot-header-v2-mobile .lot-header-wrap .jump-to-lot-wrap {
+      margin-top: 7px; }
+    .lot-header-v2-mobile .lot-header-wrap .actions {
+      display: inline-block;
+      margin-right: 4px; }
+      .lot-header-v2-mobile .lot-header-wrap .actions .btn + .btn {
+        margin-left: 7px; }
+      .lot-header-v2-mobile .lot-header-wrap .actions .watch-lot {
+        min-width: 90px; }
+      .lot-header-v2-mobile .lot-header-wrap .actions .watched-lot {
+        min-width: 110px; }
+      .lot-header-v2-mobile .lot-header-wrap .actions .btn.prev, .lot-header-v2-mobile .lot-header-wrap .actions .btn.next {
+        width: 31px;
+        color: #333333;
+        z-index: 10; }
+    .lot-header-v2-mobile .lot-header-wrap input, .lot-header-v2-mobile .lot-header-wrap button, .lot-header-v2-mobile .lot-header-wrap .btn {
+      height: 31px;
+      vertical-align: top;
+      display: inline-block; }
+    .lot-header-v2-mobile .lot-header-wrap .jump-to-lot-wrap {
+      display: inline-block;
+      vertical-align: top; }
+      .lot-header-v2-mobile .lot-header-wrap .jump-to-lot-wrap .form-group {
+        margin-bottom: 0px; }
+      .lot-header-v2-mobile .lot-header-wrap .jump-to-lot-wrap input {
+        margin-right: 5px;
+        width: 64px; }
+      .lot-header-v2-mobile .lot-header-wrap .jump-to-lot-wrap button {
+        line-height: 0px;
+        font-weight: 400;
+        text-transform: uppercase; }
+
+@media (max-width: 767px) {
+  body.is-fully-responsive .lots-page .lots.list-view .watch-icon::after {
+    top: 0px;
+    left: 3px; }
+  body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.1;
+    overflow: hidden;
+    border-left: none;
+    margin-left: 0px;
+    padding-left: 0px; }
+  body.is-fully-responsive .lots-page .lots.list-view .lot-v2 .details .lot-price-container {
+    padding-left: 0px;
+    right: auto;
+    padding-right: 0px;
+    top: initial;
+    position: relative; } }
+
+.mobile-conditions {
+  line-height: 52px;
+  list-style: none; }
+
+/*# sourceMappingURL=feature-responsive.css.map */

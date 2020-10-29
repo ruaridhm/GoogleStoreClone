@@ -1,38 +1,61 @@
-.App {
-  text-align: center;
+:root {
+  --color-black: #000;
+  --color-white: #fff;
+  --color-blue: #1967d2;
+  --color-green: #188038;
+  --color-yellow: #fbbc04;
+  --color-red: #d93025;
+  --color-grey-25: #f8f8f8;
+  --color-grey-50: #f2f2f2;
+  --color-grey-100: #dcdbdb;
+  --color-grey-200: #a09e9e;
+  --color-grey-400: #636060;
+  --color-grey-500: #423f3f;
+  --color-grey-800: #191818;
+  --color-grey-900: #050505;
+  --color-yeti-orange: #ff4c1d;
+  --color-yeti-purple: #9b0063;
+  --color-whiskers-dark-blue: #1a1d27;
+
+  --type-font-color: #808080;
+
+  --mqn2-color-white: #fff;
+  --mqn2-color-blue: #1967d2;
+  --mqn2-color-green: #188038;
+  --mqn2-color-yellow: #fbbc04;
+  --mqn2-color-red: #d93025;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* FONTS */
+
+@font-face {
+  font-family: 'GoogleSans';
+  src: local('GoogleSans'), url(./fonts/GoogleSans.woff2) format('truetype');
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@font-face {
+  font-family: 'GoogleSansMedium';
+  src: local('GoogleSansMedium'),
+    url(./fonts/GoogleSansMedium.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'GoogleSansBold';
+  src: local('GoogleSansBold'),
+    url(./fonts/GoogleSansBold.woff2) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto'), url(./fonts/Roboto.woff2) format('truetype');
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  margin: 0;
+  font-family: 'GoogleSans';
+  color: var(--color-grey-500);
 }

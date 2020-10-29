@@ -1,0 +1,282 @@
+WebModule.controller('LotController', ['$scope', 'WMService', 'LotService', 'AddressService', 'LotViewState', '$timeout', '$http', '$sce', 'Auction', function($scope, WMService, LotService, AddressService, LotViewState, $timeout, $http, $sce, Auction) {
+	$scope.lot = {};
+	$scope.WMService = WMService;
+	$scope.LotService = LotService;
+	$scope.AddressService = AddressService;
+	$scope.Auction = Auction;
+	$scope.LotViewState = LotViewState;
+	$scope.descriptionFields = {'description':{open:true},'changelog':{open:true,important:true},'short_description':{}, 'well_list':{},'property_information':{},'monthly_revenue':{},'document_repository':{}};
+	$scope.model = {
+		initialized: false, // Will be set to true after init()
+		acceptNDA: false,
+        heartbeatPromise: null, // Used by heartbeat() to store the heartbeat timeout, which throws heartAttack() if necessary.
+	};
+	$scope.lotRefreshTimeout = null;
+	$scope.isWebsocketAvailable = viewVars.hasOwnProperty('websocket') && viewVars.websocket && viewVars.websocket.url != null;
+    $scope.reconnectAttempts = 0;
+    $scope.heartbeatLengthError = false;
+
+	$scope.lotRefreshFn = function(refreshType){
+		var websocketAvailable = $scope.isWebsocketAvailable;
+		// Check if it is a manual refresh type where we are simply ajax polling
+		var isManualRefresh = !websocketAvailable && $scope.LotService.isRefreshable($scope.lot);
+		// Check if this is being called by a timer from the volt template, requesting to bypass the usual ajax polling and make an update immediately since the timer has ended.
+		var isSecondaryRefresh = typeof refreshType != 'undefined' && (refreshType == 'secondary' || refreshType == true);
+		// Check if this is being called by the websocket message handler and an auction-end was received.
+		var isWebsocketAuctionEndRefresh = typeof refreshType != 'undefined' && refreshType == 'websocketAuctionEnd';
+		
+		var isRefreshAvailable = isManualRefresh || isSecondaryRefresh || isWebsocketAuctionEndRefresh;
+		
+		if (isRefreshAvailable){
+			var promise = $http.get(viewVars.endpoints.lotAjax + $scope.lot.row_id);
+			promise.success(function(response){
+				var preserveData = {web_module: null};
+				if ($scope.lot.hasOwnProperty("web_module")){
+					preserveData.web_module = $scope.lot.web_module;
+				}
+				$scope.lot = WMService.afterLot(response.response);
+				$scope.lot.web_module = preserveData.web_module;
+			
+				$scope.$broadcast('timer-start'); //this is how we update the timer!!!!
+			});
+			promise.error(WMService.handleError);
+		}
+		LotService.buyersPremium($scope.lot);
+		$scope.lotRefreshWrapper();
+	};
+	$scope.lotRefreshWrapper = function(){
+		if (!$scope.isWebsocketAvailable){
+            if ($scope.reconnectAttempts >= viewVars.timedWebSocketMaxRetries) {
+                console.log('fall back to timed refresh', $scope.reconnectAttempts);
+                $(window).scroll();
+            }
+			if ($scope.lotRefreshTimeout){
+				$timeout.cancel($scope.lotRefreshTimeout);
+			}
+			$scope.lotRefreshTimeout = $timeout($scope.lotRefreshFn, viewVars.lotsRefreshTimer);
+		} else {
+            // cancel the timeout as it isnt needed any more
+            if ($scope.lotRefreshTimeout){
+                $timeout.cancel($scope.lotRefreshTimeout);
+            }
+        }
+	}
+	$scope.init = function(lot){
+		//$scope.$apply(function(){
+            window.localStorage.removeItem('heartbeatTime');
+			lot = WMService.afterLot(lot);
+			$scope.lot = lot;
+			$scope.model.mainImageIndex = null;
+			if ($scope.lot.images.length){
+				$scope.setMainImage(0);
+			}
+			$scope.model.initialized = true;
+			if ($scope.lot.auction && $scope.lot.auction.auction_type == 'timed'){
+				$scope.lotRefreshWrapper();
+			}
+		//});
+	};
+	$scope.setMainImage = function(index){
+		$scope.model.mainImageIndex = index;
+		if (viewVars.brand == 'alexcooper'){
+			var $imagesWrap = $(".main-image-wrap .images-wrap");
+			var imagesContainerWidth = $imagesWrap.width();
+			var image = $(".main-image-wrap .images img").eq(index);
+			var imageRelativeOffset = image.position();
+			if (imageRelativeOffset){
+				var imageAbsoluteOffsetLeft = imageRelativeOffset.left + $imagesWrap.scrollLeft();
+				$imagesWrap.animate({
+					scrollLeft: Math.max(0, imageAbsoluteOffsetLeft - imagesContainerWidth/2 + image.width()/2)
+				}, 500);
+			}
+		}
+    };
+    $scope.openExternalURL = function(url){
+        window.open(url, '_blank');
+    }
+	$scope.setMainImageWithIndexWrap = function(index){
+		if(index < 0) {
+			$scope.model.mainImageIndex = $scope.lot.images.length - 1;
+		} else if (index >= $scope.lot.images.length) {
+			$scope.model.mainImageIndex = 0;
+		} else {
+			$scope.model.mainImageIndex = index;
+		}
+	};
+	$scope.breadcrumb = function(index){
+		if (1 == index){
+			var title = ' Auctions';
+			var url;
+			if ($scope.WMService.auctionIsPast($scope.lot.auction)){
+				title = 'Past' + title;
+				url = $scope.WMService.endpoints.pastAuctions;
+			}
+			else {
+				title = 'Upcoming' + title;
+				url = $scope.WMService.endpoints.upcomingAuctions;
+			}
+			return {title: title, url: url};
+		}
+		else if (2 == index){
+			return {title: $scope.lot.auction.title, url: $scope.WMService.endpoints.auctionLots + $scope.lot.auction.row_id};
+		}
+		else if (3 == index){
+			return {title: $scope.lot.title, url: window.location.pathname};
+		}
+	};
+	$scope.toggleDescriptionField = function(field){
+		if (!$scope.descriptionFields.hasOwnProperty(field)){
+			$scope.descriptionFields[field] = {};
+		}
+		if (!$scope.descriptionFields[field].hasOwnProperty('open')){
+			$scope.descriptionFields[field].open = true;
+		}
+		else {
+			$scope.descriptionFields[field].open = !$scope.descriptionFields[field].open;
+		}
+	}
+	$scope.toggleShareBox = function(){
+		if (!$scope.lot.hasOwnProperty('_share_box_toggle') || !$scope.lot._share_box_toggle){
+			$scope.lot._share_box_toggle = true;
+		}
+		else {
+			$scope.lot._share_box_toggle = false;
+		}
+	}
+	$scope.lotFieldTabs = function(){
+		if ($scope.hasOwnProperty('_lotFieldTabs') && $scope._lotFieldTabs != null){
+			return $scope._lotFieldTabs;
+		}
+		var lotFieldTabs = [];
+		if (viewVars.lot.description){
+			lotFieldTabs.push({key:'description', label: "Description"});
+		}
+		if (viewVars.lot.document_repository && !(viewVars.lot.auction && WMService.auctionIsPast(viewVars.lot.auction))){
+			lotFieldTabs.push({key:'documents', label: "Documents"});
+		}
+		if (viewVars.lot.terms_of_sale){
+			lotFieldTabs.push({key:'terms', label: "Terms of Sale"});
+		}
+		$scope._lotFieldTabs = lotFieldTabs;
+		return lotFieldTabs;
+	}
+	$scope.currentLotFieldTab = null;
+	var lotFieldTabs = $scope.lotFieldTabs();
+	if (lotFieldTabs.length > 0){
+		$scope.currentLotFieldTab = lotFieldTabs[0].key;
+	}
+	// This is a setter/getter function that changes the alex cooper tabs.
+	$scope.lotFieldTab = function(field){
+		if (typeof(field) != 'undefined'){
+			$scope.currentLotFieldTab = field;
+		}
+		else {
+			return $scope.currentLotFieldTab;
+		}
+	}
+	$scope.isFirstLotInDocPropertyGroup = function(property, properties){
+		var groupsDiscovered = [];
+		for (var i = 0; i < properties.length; i++) {
+			if (groupsDiscovered.indexOf(properties[i].document_group) == -1){
+				if (property.row_id == properties[i].row_id){
+					return true;
+				}
+				groupsDiscovered.push(properties[i].document_group);
+			}
+		};
+		return false;
+	}
+
+	$scope.downloadDocument = function(url, name){
+		var submitData = {'url': url}
+
+		var promise = $http.post(viewVars.endpoints.downloadDocument, submitData);
+		promise.success(function(data){
+			download(data.response.url, name);
+		});
+		promise.error(function(error){
+			WMService.handleError(error);
+		});
+	}
+
+	$scope.executeMessage = function(message){
+		$scope.$apply(function(){
+            LotService.webSocketUpdate($scope, message, [$scope.lot]);
+    		var envelope = $.parseJSON(message.data);
+    		if (envelope.type == 'auction-end'){
+    			$scope.lotRefreshFn('websocketAuctionEnd');
+            }
+    		
+			$scope.$broadcast('timer-start'); // Update timers
+		});
+	}
+
+	$scope.initWebSocket = function(){
+		$scope.connection = new ReconnectingWebSocket(viewVars.websocket.url);
+        $scope.connection.maxReconnectAttempts = viewVars.timedWebSocketMaxRetries;
+        $scope.reconnectAttempts = 0;
+		// When the connection is open, subscribe to the auction events (or lots).
+		$scope.connection.onopen = function () {
+			var connectMessage = LotService.webSocketConnectMessage();
+			console.log(connectMessage);
+			$scope.connection.send(JSON.stringify(connectMessage));
+            $scope.reconnectAttempts = 0;
+		};
+
+		// Log errors
+		$scope.connection.onerror = function (error) {
+		  console.log('WebSocket Error: ' + error);
+          $scope.isWebsocketAvailable = false;
+          $scope.reconnectAttempts++;
+          if(!$scope.$$phase){
+            $scope.$apply();
+          }
+          $scope.lotRefreshWrapper();
+		};
+
+		$scope.connection.onmessage = $scope.executeMessage;
+		$scope.connection.onclose = function(){
+			$scope.$apply(function(){$scope.model.connected = false;});
+            $scope.isWebsocketAvailable = false;
+            if(!$scope.$$phase){
+                $scope.$apply();
+            }
+            $scope.lotRefreshWrapper();
+		};
+	}
+
+    $scope.heartbeat = function(){
+        // capture the time of the heartbeat and store it in localStorage.
+        // compare that to the current time, if it is greater than x show the disconnect message
+        var actualTime = new Date().getTime();
+        var heartbeatTime = window.localStorage.getItem('heartbeatTime');
+        var actualTimeMoment = moment(actualTime);
+        var heartbeatTimeMoment = moment(parseInt(heartbeatTime));
+        var duration = moment.duration(actualTimeMoment.diff(heartbeatTimeMoment));
+
+        if (duration.asSeconds() > 10) {
+            if ($scope.heartbeatLengthError === false) {
+                $(window).scroll();
+            }
+            $scope.heartbeatLengthError = true;
+        }
+
+        if ($scope.model.heartbeatPromise){
+            var actualTime = new Date().getTime();
+            window.localStorage.setItem('heartbeatTime', actualTime);
+            $timeout.cancel($scope.model.heartbeatPromise);
+        }
+        $scope.model.heartbeatPromise = $timeout($scope.heartAttack, 6000);
+    };
+
+    $scope.heartAttack = function(){
+        $scope.connection.close();
+        $scope.initWebSocket();
+    };
+
+	if ($scope.isWebsocketAvailable){
+		$scope.initWebSocket();
+	}
+
+	$scope.init(viewVars.lot); 
+}]);

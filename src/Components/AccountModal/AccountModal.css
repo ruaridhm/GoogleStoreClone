@@ -1,0 +1,75 @@
+.account-modal {
+  width: 288px;
+  height: 348px;
+  padding: 24px;
+  position: fixed;
+  top: 48px;
+  left: 1040px;
+
+  background-color: var(--color-white);
+  box-shadow: rgba(5, 5, 5, 0.2) 0px 2px 16px 0px;
+}
+.account-name {
+  font-size: 18px;
+  font-family: 'GoogleSansMedium';
+  line-height: 24px;
+  margin-bottom: 1.8em;
+}
+
+.signIn-button {
+  box-shadow: rgba(5, 5, 5, 0.2) 0px 2px 4px 0px;
+  height: 49px;
+  width: 240px;
+  margin-top: 0.5em;
+}
+.signIn-button-link {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.account-signIn-text {
+  padding-left: 1em;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: 'GoogleSansMedium';
+  color: var(--color-grey-500);
+}
+
+.account-modal-link-list {
+  list-style: none;
+  padding-left: 1px;
+  padding-top: 1.3em;
+}
+
+.account-modal-link-item {
+  padding-left: 0.5em;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+
+  font-size: 14px;
+  font-family: 'GoogleSans';
+}
+.account-modal-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.account-modal-link-item-text {
+  padding-left: 1.6em;
+  color: var(--color-grey-500);
+}
+
+.account-modal-link-item:hover {
+  background-color: var(--color-grey-50);
+}
+
+.account-modal-svg {
+  max-height: 24px;
+  max-width: 24px;
+  fill: var(--color-grey-400);
+}

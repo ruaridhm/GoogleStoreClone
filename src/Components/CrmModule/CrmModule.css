@@ -1,0 +1,40 @@
+.crmModule {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1.5rem;
+  color: var(--color-grey-500);
+  background-color: #f9f8f9;
+}
+
+.crm-google-logo {
+  height: 2rem;
+  width: 2rem;
+}
+
+.crm-main-text {
+  font-size: 36px;
+  text-align: center;
+  width: 40rem;
+  font-family: 'GoogleSansMedium';
+  font-weight: 500;
+}
+.signup-email-alt {
+  margin-top: 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--color-grey-500);
+}
+.signup-email-alt:hover {
+  color: var(--color-blue);
+}
+
+.crm-disclaimer {
+  margin-top: 24px;
+  text-align: center;
+  width: 40rem;
+  font-size: 0.75em;
+  line-height: 18px;
+}

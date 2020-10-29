@@ -1,0 +1,122 @@
+.product-tile-1 {
+  display: flex;
+  height: 90.35vh;
+  color: var(--color-grey-500);
+  padding: 0 1.5em 1.5em 1.5em;
+}
+
+.product-tile-1-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  padding-top: 9.5em;
+  margin-left: 2.23em;
+}
+.product-tile-1-text-title {
+  font-size: 1.25rem;
+  font-family: 'GoogleSansMedium';
+  line-height: 20px;
+  letter-spacing: -0.75px;
+}
+.product-tile-1-text-description {
+  font-size: 3.5em;
+  text-align: center;
+  font-family: 'GoogleSansBold';
+  letter-spacing: -2px;
+  padding: 0.21em 1em 0.35em 1em;
+  line-height: 56px;
+}
+
+.tile-container-2 {
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1.5em;
+}
+
+.product-tile-2 {
+  background-color: #f9f8f9;
+  color: var(--color-grey-500);
+  padding-top: 4.85em;
+}
+
+.product-tile-2-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 0 20px;
+}
+.product-tile-2-text-title {
+  font-size: 1.25rem;
+  font-family: 'GoogleSansMedium';
+  letter-spacing: -0.75px;
+  padding-bottom: 13px;
+}
+.product-tile-2-text-description {
+  font-size: 3.5em;
+  text-align: center;
+  font-family: 'GoogleSansBold';
+  letter-spacing: -2px;
+  line-height: 56px;
+  padding-bottom: 24px;
+}
+
+.product-tile-2-sup {
+  font-family: 'GoogleSans';
+  font-size: 40%;
+  letter-spacing: -2px;
+}
+
+.product-tile-video {
+  width: 100%;
+  padding-top: 6em;
+}
+
+.product-tile-3-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 24px;
+  padding: 1.5em;
+  color: var(--color-grey-500);
+}
+
+.product-tile-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f8f9;
+  padding-top: 2.4rem;
+}
+.product-tile-3-text-container {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.product-tile-3-text-title {
+  font-size: 1.25rem;
+  text-align: center;
+  font-family: 'GoogleSansMedium';
+  letter-spacing: -0.75px;
+}
+.product-tile-3-text-description {
+  font-size: 2.5em;
+  text-align: center;
+  margin: 10px 0 1.25rem 0;
+  font-family: 'GoogleSansBold';
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.product-tile-3-sup {
+  font-size: 1rem;
+  font-family: 'GoogleSans';
+}
+
+.product-tile-3-img {
+  width: 100%;
+}
